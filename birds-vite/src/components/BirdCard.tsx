@@ -20,15 +20,15 @@ export function BirdCard({ bird, onClick }: BirdCardProps) {
 
   return (
     <div
-      className="cursor-pointer transition-all hover:scale-105 flex flex-col gap-2 w-[168px]"
+      className="cursor-pointer transition-all hover:scale-105 flex flex-col gap-2 w-full min-w-0"
       onClick={handleClick}
     >
       {/* Image */}
-      <div className="flex flex-col">
+      <div className="flex flex-col w-full">
         <ImageWithFallback
           src={bird.image_url || ''}
           alt={bird.english_name}
-          className="rounded-lg object-cover w-[168px] h-[95px]"
+          className="relative w-full rounded-lg aspect-[168/95]"
         />
       </div>
 
