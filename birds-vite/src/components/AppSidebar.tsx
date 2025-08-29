@@ -1,5 +1,8 @@
-import { useNavigate } from 'react-router-dom';
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { useSidebar } from "@/components/ui/sidebar";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { Github, Link as LinkIcon, Linkedin } from "lucide-react";
+import { useNavigate } from 'react-router-dom';
 
 interface SocialLinkProps {
     url: string;
@@ -21,53 +24,73 @@ const SocialLink = ({ url, label, children }: SocialLinkProps) => (
     </a>
 );
 
-export function AppSidebar() {
-  const navigate = useNavigate();
-  return (
-    <div className="flex flex-col bg-white border-r border-birds-border w-[307px]">
-      <div className="flex flex-col justify-between p-4 bg-birds-background h-full">
-        <div className="flex flex-col gap-4">
-          {/* Header */}
-          <div className="flex flex-row items-start gap-3">
-            <div className="flex flex-col">
-              <h1 className="font-medium text-base leading-6 text-birds-primary">
-                The Birds App
-              </h1>
-              <p className="font-normal text-sm leading-[21px] text-birds-secondary">
-                By Copilot
-              </p>
-            </div>
-          </div>
-          
-          {/* Navigation */}
-          <div className="flex flex-col gap-2">
-            <div 
-              className="flex flex-row items-center rounded-lg px-3 py-2 bg-birds-home-bg h-[37px] cursor-pointer hover:bg-birds-home-bg/80 transition-colors"
-              onClick={() => navigate('/')}
-            >
-              <span className="font-semibold text-sm leading-[21px] text-birds-primary">
-                Home
-              </span>
-            </div>
-          </div>
-        </div>
-        
-        {/* Social Links */}
-        <div className="flex flex-col items-center gap-3 pb-2">
-          <div className="flex items-center gap-3">
-            <SocialLink url="https://www.linkedin.com/in/guillermocasanovab/" label="LinkedIn profile">
-              <Linkedin className="size-5" />
-            </SocialLink>
-            <SocialLink url="https://github.com/gigioxx" label="GitHub profile">
-              <Github className="size-5" />
-            </SocialLink>
-            <SocialLink url="https://www.guillermocasanova.cl/" label="Personal website">
-              <LinkIcon className="size-5" />
-            </SocialLink>
-          </div>
-          <p className="text-center text-sm text-birds-secondary">With ❤️ by Guillermo Casanova</p>
+const SidebarContent = ({ navigate }: { navigate: (path: string) => void }) => (
+  <div className="flex flex-col justify-between items-start p-4 w-full h-full bg-birds-background">
+    <div className="flex flex-col items-start p-0 gap-4 w-full">
+      <div className="flex flex-row items-start p-0 gap-3 w-full">
+        <div className="flex flex-col items-start p-0">
+          <h1 className="font-medium text-base leading-6 text-birds-primary">
+            The Birds App
+          </h1>
+          <p className="font-normal text-sm leading-[21px] text-birds-secondary">
+            By Copilot
+          </p>
         </div>
       </div>
+
+      <div className="flex flex-col items-start p-0 gap-2 w-full">
+        <div
+          className="flex flex-row items-center px-3 py-2 gap-3 w-full h-[37px] bg-[rgba(63,119,171,0.08)] rounded-lg cursor-pointer hover:bg-[rgba(63,119,171,0.12)] transition-colors"
+          onClick={() => navigate('/')}
+        >
+          <span className="font-semibold text-sm leading-[21px] text-birds-primary">
+            Home
+          </span>
+        </div>
+      </div>
+    </div>
+
+    {/* Social Links */}
+    <div className="flex flex-col items-center gap-3 pb-2 w-full">
+      <div className="flex items-center justify-center gap-3">
+        <SocialLink url="https://www.linkedin.com/in/guillermocasanovab/" label="LinkedIn profile">
+          <Linkedin className="size-5" />
+        </SocialLink>
+        <SocialLink url="https://github.com/gigioxx" label="GitHub profile">
+          <Github className="size-5" />
+        </SocialLink>
+        <SocialLink url="https://www.guillermocasanova.cl/" label="Personal website">
+          <LinkIcon className="size-5" />
+        </SocialLink>
+      </div>
+      <p className="text-center text-sm text-birds-secondary w-full">With ❤️ by Guillermo Casanova</p>
+    </div>
+  </div>
+);
+
+export function AppSidebar() {
+  const navigate = useNavigate();
+  const isMobile = useIsMobile();
+  const { openMobile, setOpenMobile } = useSidebar();
+
+  // On mobile, render as Sheet
+  if (isMobile) {
+    return (
+      <Sheet open={openMobile} onOpenChange={setOpenMobile}>
+        <SheetContent side="left" className="w-[307px] p-0 bg-white">
+          <SheetHeader className="sr-only">
+            <SheetTitle>Navigation</SheetTitle>
+          </SheetHeader>
+          <SidebarContent navigate={navigate} />
+        </SheetContent>
+      </Sheet>
+    );
+  }
+
+  // On desktop, render as fixed sidebar
+  return (
+    <div className="fixed top-0 left-0 flex flex-col items-start p-0 w-[307px] h-screen bg-white border border-birds-border z-10">
+      <SidebarContent navigate={navigate} />
     </div>
   );
 }
