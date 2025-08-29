@@ -1,25 +1,25 @@
-import { gql } from '@apollo/client';
-import { useEffect } from 'react';
-
-import { client } from './lib/apollo';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { SidebarProvider } from '@/components/ui/sidebar';
+import { AppSidebar } from '@/components/AppSidebar';
+import { BirdsPage } from '@/components/BirdsPage';
+import { BirdDetail } from '@/components/BirdDetail';
 
 const App = () => {
-	useEffect(() => {
-		client
-			.query({
-				query: gql`
-					query Birds {
-						birds {
-							id
-							english_name
-						}
-					}
-				`,
-			})
-			.then((result) => console.log(result.data));
-	}, []);
-
-	return <div />;
+  return (
+    <BrowserRouter>
+      <div className="h-screen bg-white flex overflow-hidden">
+        <SidebarProvider>
+          <AppSidebar />
+          <main className="flex-1">
+            <Routes>
+              <Route path="/" element={<BirdsPage />} />
+              <Route path="/bird/:id" element={<BirdDetail />} />
+            </Routes>
+          </main>
+        </SidebarProvider>
+      </div>
+    </BrowserRouter>
+  );
 };
 
 export default App;
