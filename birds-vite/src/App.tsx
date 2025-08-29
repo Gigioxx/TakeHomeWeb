@@ -7,17 +7,18 @@ import { BirdDetail } from '@/components/BirdDetail';
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="h-screen bg-white flex overflow-hidden">
-        <SidebarProvider>
+      <SidebarProvider>
+        <div className="w-full h-screen bg-white">
           <AppSidebar />
-          <main className="flex-1">
+          {/* Content area: offset by 308px only on desktop, full width on mobile */}
+          <main className="md:ml-[308px] ml-0 flex flex-col items-center p-0 bg-white h-screen">
             <Routes>
               <Route path="/" element={<BirdsPage />} />
               <Route path="/bird/:id" element={<BirdDetail />} />
             </Routes>
           </main>
-        </SidebarProvider>
-      </div>
+        </div>
+      </SidebarProvider>
     </BrowserRouter>
   );
 };

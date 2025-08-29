@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import { SidebarTrigger } from '@/components/ui/sidebar';
 import { useBird } from '@/hooks/useBird';
 import { useNavigate, useParams } from 'react-router-dom';
 import { AddNoteModal } from './AddNoteModal';
@@ -44,16 +45,19 @@ export function BirdDetail() {
   return (
     <div className="flex flex-col h-full bg-white w-full">
       {/* Header with breadcrumb */}
-      <div className="flex flex-row justify-between items-center border-b border-birds-border flex-shrink-0 px-6 py-4 h-[72px]">
-        <h1 className="text-2xl xl:text-[32px] leading-10 tracking-[-0.8px] text-birds-primary">
-          <span
-            className="opacity-40 cursor-pointer hover:opacity-60 transition-opacity"
-            onClick={() => navigate('/')}
-          >
-            Birds /
-          </span>
-          <span className="font-bold"> {bird.english_name}</span>
-        </h1>
+      <div className="flex flex-row justify-between items-center border-b border-birds-border flex-shrink-0 px-4 md:px-6 py-4 h-[72px] gap-3">
+        <div className="flex items-center gap-3">
+          <SidebarTrigger className="md:hidden" />
+          <h1 className="text-xl md:text-2xl xl:text-[32px] leading-8 md:leading-10 tracking-[-0.8px] text-birds-primary">
+            <span
+              className="opacity-40 cursor-pointer hover:opacity-60 transition-opacity"
+              onClick={() => navigate('/')}
+            >
+              Birds /
+            </span>
+            <span className="font-bold"> {bird.english_name}</span>
+          </h1>
+        </div>
         <Button
           variant="outline"
           size="sm"
@@ -65,29 +69,29 @@ export function BirdDetail() {
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-auto p-6">
+      <div className="flex-1 overflow-auto p-4 md:p-6">
         <div className="flex flex-col gap-2">
 
           {/* Images Section */}
-          <div className="flex flex-row items-start px-6 gap-3 h-[169.5px]">
-            <div className="flex flex-col gap-3 w-[301px] h-[169.5px]">
+          <div className="flex flex-row items-start px-4 md:px-6 gap-3 h-auto md:h-[169.5px]">
+            <div className="flex flex-col gap-3 w-full max-w-[301px] h-auto md:h-[169.5px]">
               <ImageWithFallback
                 src={bird.image_url || ''}
                 alt={bird.english_name}
-                className="rounded-lg object-cover w-[301px] h-[169px]"
+                className="rounded-lg object-cover w-full h-[200px] md:w-[301px] md:h-[169px]"
               />
             </div>
           </div>
 
           {/* Notes Section */}
-          <div className="flex flex-col w-full h-[204px] pt-5">
-            <div className="flex flex-row items-start px-6 pb-3 h-[60px]">
+          <div className="flex flex-col w-full h-auto md:h-[204px] pt-5">
+            <div className="flex flex-row items-start px-4 md:px-6 pb-3 h-[60px]">
               <h2 className="font-bold text-[22px] leading-7 tracking-[-0.33px] text-birds-primary">
                 Notes
               </h2>
             </div>
 
-            <div className="w-[759px] min-h-[144px]">
+            <div className="w-full max-w-[759px] min-h-[144px]">
               {/* Show loading skeleton when adding a note */}
               {isAddingNote && <NoteItemSkeleton />}
               
@@ -111,23 +115,23 @@ export function BirdDetail() {
           </div>
 
           {/* In Other Languages Section */}
-          <div className="flex flex-col w-full h-[249.5px]">
-            <div className="flex flex-row items-start px-6 pb-3 h-[59.5px]">
+          <div className="flex flex-col w-full h-auto md:h-[249.5px]">
+            <div className="flex flex-row items-start px-4 md:px-6 pb-3 h-[59.5px]">
               <h2 className="font-bold text-[22px] leading-7 tracking-[-0.33px] text-birds-primary">
                 In Other Languages
               </h2>
             </div>
 
-            <div className="w-full h-[190px]">
-              <div className="flex flex-row">
+            <div className="w-full h-auto md:h-[190px]">
+              <div className="flex flex-col md:flex-row">
                 {/* Spanish Column */}
-                <div className="flex flex-col items-start px-6 py-4 gap-1 w-[464px] h-[79px] border-t border-gray-200">
-                  <div className="flex flex-row items-start w-[456px] h-[21px]">
-                    <span className="font-normal text-sm leading-[21px] text-birds-secondary w-[133px]">
+                <div className="flex flex-col items-start px-4 md:px-6 py-4 gap-1 w-full md:w-[464px] h-[79px] border-t border-gray-200">
+                  <div className="flex flex-row items-start w-full h-[21px]">
+                    <span className="font-normal text-sm leading-[21px] text-birds-secondary">
                       Spanish
                     </span>
                   </div>
-                  <div className="flex flex-row items-start w-[456px] h-[21px]">
+                  <div className="flex flex-row items-start w-full h-[21px]">
                     <span className="font-normal text-sm leading-[21px] text-birds-secondary/50">
                       Not available
                     </span>
@@ -135,13 +139,13 @@ export function BirdDetail() {
                 </div>
 
                 {/* Latin Column */}
-                <div className="flex flex-col items-start px-2 py-4 gap-1 w-[452px] h-[79px] border-t border-gray-200">
-                  <div className="flex flex-row items-start w-[456px] h-[21px]">
-                    <span className="font-normal text-sm leading-[21px] text-birds-secondary w-[110px]">
+                <div className="flex flex-col items-start px-4 md:px-2 py-4 gap-1 w-full md:w-[452px] h-[79px] border-t border-gray-200">
+                  <div className="flex flex-row items-start w-full h-[21px]">
+                    <span className="font-normal text-sm leading-[21px] text-birds-secondary">
                       Latin
                     </span>
                   </div>
-                  <div className="flex flex-row items-start w-[456px] h-[21px]">
+                  <div className="flex flex-row items-start w-full h-[21px]">
                     <span className="font-normal text-sm leading-[21px] text-birds-primary">
                       {bird.latin_name}
                     </span>
