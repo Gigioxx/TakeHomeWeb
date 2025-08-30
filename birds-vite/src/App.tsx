@@ -11,7 +11,7 @@ const App = () => {
         <div className="w-full h-screen bg-white">
           <AppSidebar />
           {/* Content area: offset by 308px only on desktop, full width on mobile */}
-          <main className="md:ml-[308px] ml-0 flex flex-col items-center p-0 bg-white h-screen">
+          <main className="md:ml-[308px] ml-0 flex flex-col items-center p-0 bg-white min-h-screen">
             <Routes>
               <Route path="/" element={<BirdsPage />} />
               <Route path="/bird/:id" element={<BirdDetail />} />
