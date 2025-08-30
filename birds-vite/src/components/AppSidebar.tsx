@@ -40,7 +40,7 @@ const SidebarContent = ({ navigate }: { navigate: (path: string) => void }) => (
 
       <div className="flex flex-col items-start p-0 gap-2 w-full">
         <div
-          className="flex flex-row items-center px-3 py-2 gap-3 w-full h-[37px] bg-[rgba(63,119,171,0.08)] rounded-lg cursor-pointer hover:bg-[rgba(63,119,171,0.12)] transition-colors"
+          className="flex flex-row items-center px-3 py-2 gap-3 w-full h-[37px] bg-birds-secondary/[0.08] rounded-lg cursor-pointer hover:bg-birds-secondary/[0.12] transition-colors"
           onClick={() => navigate('/')}
         >
           <span className="font-semibold text-sm leading-[21px] text-birds-primary">

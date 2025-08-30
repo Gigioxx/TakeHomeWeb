@@ -56,10 +56,7 @@ export function AddNoteModal({ open, onOpenChange, birdId, onNoteAdded, onNoteAd
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
-        className="w-[424px] max-w-[calc(100vw-2rem)] p-0 gap-0 bg-white border border-black/[0.06] rounded-lg"
-        style={{
-          boxShadow: '0px 68px 68px -32px rgba(0, 0, 0, 0.08), 0px 32px 32px -16px rgba(0, 0, 0, 0.08), 0px 0px 60px rgba(0, 0, 0, 0.16)'
-        }}
+        className="w-[424px] max-w-[calc(100vw-2rem)] p-0 gap-0 bg-white border border-black/[0.06] rounded-lg shadow-2xl"
         showCloseButton={false}
       >
         {/* Header */}
@@ -112,29 +109,23 @@ export function AddNoteModal({ open, onOpenChange, birdId, onNoteAdded, onNoteAd
         </div>
 
         {/* Footer */}
-        <div className="h-16 px-4 py-4 border-t border-[#E9EAEA] backdrop-blur-sm">
+        <div className="h-16 px-4 py-4 border-t border-border backdrop-blur-sm">
           <div className="flex justify-end gap-4">
             <Button
               variant="outline"
               onClick={handleCancel}
-              className="h-8 px-3 text-[13px] font-semibold text-birds-primary bg-white border border-black/[0.06] rounded-lg hover:bg-gray-50"
-              style={{
-                boxShadow: '0px 2px 4px rgba(0, 24, 46, 0.04), 0px 1px 0.5px -1px rgba(0, 24, 45, 0.12)'
-              }}
+              className="h-8 px-3 text-[13px] font-semibold text-birds-primary bg-white border border-black/[0.06] rounded-lg hover:bg-gray-50 shadow-sm"
             >
               Cancel
             </Button>
             <Button
               onClick={handleSubmit}
               disabled={!isFormValid || loading}
-              className={`h-8 px-3 text-[13px] font-semibold text-white border border-birds-blue rounded-lg transition-opacity ${
+              className={`h-8 px-3 text-[13px] font-semibold text-white border border-birds-blue rounded-lg transition-opacity shadow-sm ${
                 !isFormValid || loading
                   ? 'bg-birds-blue opacity-50 cursor-not-allowed'
                   : 'bg-birds-blue hover:bg-birds-blue-hover'
               }`}
-              style={{
-                boxShadow: '0px 2px 4px rgba(0, 24, 46, 0.04), 0px 1px 1px -1px rgba(0, 24, 45, 0.12)'
-              }}
             >
               {loading ? 'Adding...' : 'Add note'}
             </Button>
